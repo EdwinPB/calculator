@@ -1,0 +1,11 @@
+<%= form({action: stringCalculatePath(), method: "POST"}) { %>
+    <div class="">
+        <div class="col-md-12">
+            <%= f.InputTag({name:"Numbers"}) %>
+            <button class="btn btn-success" role="submit">Save</button>
+        </div>
+    </div>
+<% } %>
+
+
+<h4><%= result %></h4>
