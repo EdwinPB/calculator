@@ -112,7 +112,7 @@ table {
 @media all and (max-width: 530px) {
   .titles {
     h1 {
-      font-size: 20px;
+      font-size: 40px;
       margin: 5px 0;
     }
 
@@ -129,5 +129,51 @@ table {
     img {
       width: 100%
     }
+  }
+}
+
+
+
+
+.theme {
+
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    min-height: 100%;
+    min-width: 1024px;
+      
+    width: 100%;
+    height: auto;
+      
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+
+  .center.day {
+    background: #ffffff;
+
+    .title{
+      color: gray !important;
+    }
+
+  }
+
+  .center.night {
+    background: gray !important;
+
+    .title{
+      color: #ffffff !important;
+    }
+
+    
+  }
+
+  .c-button{
+    background: #62a5ee ;
+    color: #ffffff;
   }
 }
