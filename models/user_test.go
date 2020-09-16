@@ -1,7 +1,13 @@
 package models
 
-import "testing"
-
-func Test_User(t *testing.T) {
-	t.Fatal("This test needs to be implemented!")
+func (ms ModelSuite) Test_User() {
+	user := User{
+		Name:     "Edwin",
+		LastName: "Polo",
+		Email:    "edwin@polo.com",
+		Age:      "33",
+	}
+	verrs, err := ms.DB.ValidateAndCreate(&user)
+	ms.NoError(err)
+	ms.Empty(verrs.Errors)
 }

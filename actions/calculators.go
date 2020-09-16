@@ -20,7 +20,12 @@ func CalculatorsCalculate(c buffalo.Context) error {
 	if err := c.Bind(&calculator); err != nil {
 		return err
 	}
-	result, _ := models.Calculate(calculator.EnteredValue)
+
+	result, err := models.Calculate(calculator.EnteredValue)
+	if err != nil {
+		// show err
+		c.Set("calculateError", err)
+	}
 
 	c.Set("result", result)
 	c.Set("theme", c.Params().Get("theme"))

@@ -32,12 +32,12 @@ func (as *ActionSuite) Test_Calculators_Show_Theme() {
 	res := as.HTML("/calculators/show").Get()
 	as.Equal(http.StatusOK, res.Code)
 	as.Contains(res.Body.String(), `<div class="center day">`)
-	as.Contains(res.Body.String(), `<input id="day" name="day" type="checkbox" value="true" checked>`)
+	as.Contains(res.Body.String(), `<input id="day" name="day" type="radio" value="true" checked>`)
 
 	res = as.HTML("/calculators/show/?theme=day").Get()
 	as.Equal(http.StatusOK, res.Code)
 	as.Contains(res.Body.String(), `<div class="center day">`)
-	as.Contains(res.Body.String(), `<input id="day" name="day" type="checkbox" value="true" checked>`)
+	as.Contains(res.Body.String(), `<input id="day" name="day" type="radio" value="true" checked>`)
 
 	tcases := []struct {
 		theme  string
@@ -53,7 +53,7 @@ func (as *ActionSuite) Test_Calculators_Show_Theme() {
 
 		as.Equal(http.StatusOK, res.Code)
 		as.Contains(res.Body.String(), fmt.Sprintf(`<div class="center %v">`, tcase.rTheme))
-		as.Contains(res.Body.String(), fmt.Sprintf(`<input id="%v" name="%v" type="checkbox" value="true" checked>`, tcase.rTheme, tcase.rTheme))
+		as.Contains(res.Body.String(), fmt.Sprintf(`<input id="%v" name="%v" type="radio" value="true" checked>`, tcase.rTheme, tcase.rTheme))
 	}
 
 }

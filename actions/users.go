@@ -9,6 +9,8 @@ import (
 	"github.com/gobuffalo/pop/v5"
 )
 
+var errTransactionNoFound = fmt.Errorf("no transaction found")
+
 // UsersCreate default implementation.
 func UsersCreate(c buffalo.Context) error {
 	user := models.User{}
@@ -18,13 +20,18 @@ func UsersCreate(c buffalo.Context) error {
 
 	tx, ok := c.Value("tx").(*pop.Connection)
 	if !ok {
-		return fmt.Errorf("no transaction found")
+		return errTransactionNoFound
 	}
 
-	_, err := tx.ValidateAndCreate(&user)
+	verrs, err := tx.ValidateAndCreate(&user)
 
 	if err != nil {
 		return err
+	}
+
+	if verrs.HasAny() {
+		// Show error
+		return c.Redirect(http.StatusSeeOther, "/calculator/show")
 	}
 
 	return c.Redirect(http.StatusSeeOther, "/calculator/show")

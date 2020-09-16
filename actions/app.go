@@ -3,6 +3,7 @@ package actions
 import (
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/envy"
+	"github.com/gobuffalo/logger"
 	forcessl "github.com/gobuffalo/mw-forcessl"
 	paramlogger "github.com/gobuffalo/mw-paramlogger"
 	"github.com/unrolled/secure"
@@ -78,7 +79,9 @@ func App() *buffalo.App {
 func translations() buffalo.MiddlewareFunc {
 	var err error
 	if T, err = i18n.New(packr.New("app:locales", "../locales"), "en-US"); err != nil {
-		app.Stop(err)
+		if err := app.Stop(err); err != nil {
+			logger.NewLogger(err.Error())
+		}
 	}
 	return T.Middleware()
 }

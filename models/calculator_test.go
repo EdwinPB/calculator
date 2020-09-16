@@ -17,10 +17,11 @@ func (ms ModelSuite) Test_Calculator_Calculate() {
 		{"1,2,3,5", 11, nil},
 		{"2\n3,4", 9, nil},
 		{"//;\n1;2", 3, nil},
+		{"//;\n1;2;6;7", 16, nil},
 		{"//:\n1:2", 3, nil},
-		{"-1", 0, errors.New("Invalid Input")},
-		{"1,-2", 0, errors.New("Invalid Input")},
-		{"2\n3,-4", 0, errors.New("Invalid Input")},
+		{"-1", 0, errors.New("invalid input")},
+		{"1,-2", 0, errors.New("invalid input")},
+		{"2\n3,-4", 0, errors.New("invalid input")},
 	}
 
 	for _, tcase := range tcases {
