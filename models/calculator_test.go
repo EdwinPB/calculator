@@ -32,3 +32,7 @@ func (ms ModelSuite) Test_Calculator_Calculate() {
 		}
 	}
 }
+
+func (ms ModelSuite) Test_Calculator_Storage_Calculator() {
+
+}

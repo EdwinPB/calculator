@@ -1,0 +1,9 @@
+create_table("calculators"){
+    t.Column("id", "uuid", {"primary": true})
+    t.Column("entered_value", "string", {})
+    t.Column("calculated_value", "string", {})  
+    t.Column("user_id", "uuid", {})
+    t.ForeignKey("user_id", {"users": ["id"]}, {"on_delete": "cascade"})
+
+    t.Timestamps()
+}

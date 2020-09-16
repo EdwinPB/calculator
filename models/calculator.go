@@ -4,10 +4,20 @@ import (
 	"errors"
 	"strconv"
 	"strings"
+	"time"
+
+	"github.com/gofrs/uuid"
 )
 
 type Calculator struct {
-	Numbers string `json:"s_numbers" db:""`
+	ID              uuid.UUID `json:"id" db:"id"`
+	EnteredValue    string    `json:"entered_value" db:"entered_value"`
+	CalculatedValue int       `json:"calculated_value" db:"calculated_value"`
+
+	UserID uuid.UUID `json:"user_id" db:""`
+
+	CreatedAt time.Time `json:"created_at" db:"created_at"`
+	UpdatedAt time.Time `json:"updated_at" db:"updated_at"`
 }
 
 // Calculators is not required by pop and may be deleted
