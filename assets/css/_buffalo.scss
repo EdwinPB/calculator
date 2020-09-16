@@ -16,7 +16,7 @@ header {
 
 .titles {
   h1 {
-    font-size: 30px;
+    font-size: 50px;
     font-weight: 300;
     color: white;
     margin-bottom: 13px;
@@ -187,5 +187,19 @@ table {
   .c-button{
     background: #46BCFF ;
     color: white;
+  }
+
+  h1 {
+    font-size: 50px;
+    font-weight: 300;
+    margin-bottom: 13px;
+    margin-top: 5px;
+  }
+
+  h2 {
+    font-weight: 300;
+    font-size: 24px;
+    display: inline-block;
+    margin: 0;
   }
 }

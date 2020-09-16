@@ -5,7 +5,7 @@
 <div class="center <%= theme %>">
     <%= form({action: stringCalculatePath({theme: theme}), method: "POST"}) { %>
         <div class="title">            
-            <div class="col-12 d-flex ">
+            <div class="col-12 d-flex flex-row p-0">
                 <div class="col-2" style="align-self: center">
                     <div class="form-group">
                         <label>
@@ -17,18 +17,26 @@
                             <input id="day" name="day" type="hidden" value="day"> Day
                         </label>                        
                     </div>                                    
+                </div>                
+                <div class="mx-3 col-6 p-0">
+                    <div class="d-flex flex-column">
+                        <div class="p-0">
+                            <label for="EnteredValue"><h2>StringCalculator for</h2></label>
+                            <%= f.InputTag({name:"EnteredValue", placeholder:"Type your expression...", size:"40"}) %>
+                        </div>                        
+                        
+                    </div>                                        
+                </div> 
+                <div class="col-4 p-0 d-flex justify-content-start ">
+                    <button class="btn btn-primary px-3 mt-4 ml-2" style="align-self: center" role="submit">CALCULATE</button>
+                </div>                                       
+            </div>
+            <div class="col-12 d-flex ">
+                <div class="col-2"></div>
+                <div class="col-6 d-flex justify-content-center">
+                    <h1 class="titles"><%= result %></h1>
                 </div>
-                
-                <div class="mx-3 col-11">
-                    <div class="d-flex">
-                        <%= f.InputTag({name:"EnteredValue", label:"StringCalculator for", placeholder:"Type your expression...", size:"30"}) %>
-                        <button class="btn btn-primary px-3 mt-3 ml-3" style="align-self: center" role="submit">CALCULATE</button>
-                    </div>
-                    
-                    <div>
-                        <h1><%= result %></h1>
-                    </div>
-                </div>                                        
+                <div class="col-4"></div>
             </div>
         </div>
     <% } %>
