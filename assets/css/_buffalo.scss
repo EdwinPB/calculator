@@ -154,26 +154,38 @@ table {
   }
 
   .center.day {
-    background: #ffffff;
+    background: white;
 
     .title{
-      color: gray !important;
+      color: #656565 !important;
+    }
+
+    input {
+      background-color: white;
     }
 
   }
 
   .center.night {
-    background: gray !important;
+    background: #656565 !important;
 
     .title{
-      color: #ffffff !important;
+      color:  white !important;
     }
 
-    
+
+    input{
+      background-color: #4745453f;
+      color: white;
+      ::placeholder {
+        color: white;
+        
+      }
+    }
   }
 
   .c-button{
-    background: #62a5ee ;
-    color: #ffffff;
+    background: #46BCFF ;
+    color: white;
   }
 }
