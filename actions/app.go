@@ -52,7 +52,7 @@ func App() *buffalo.App {
 		app.Use(csrf.New)
 
 		// Wraps each request in a transaction.
-		//  c.Value("tx").(*pop.Connection)
+		// c.Value("tx").(*pop.Connection)
 		// Remove to disable this.
 		app.Use(popmw.Transaction(models.DB))
 
@@ -64,6 +64,7 @@ func App() *buffalo.App {
 		app.GET("/calculators/show", CalculatorsShow)
 		app.POST("/calculators/calculate", CalculatorsCalculate).Name("stringCalculate")
 
+		app.POST("/users/create", UsersCreate)
 		app.ServeFiles("/", assetsBox) // serve files from the public directory
 	}
 

@@ -1,5 +1,10 @@
-<div class="center">
+<div class="center d-flex flex-column">
+  <h1>Welcome</h1>
   <%= form({action: calculatorsShowPath(), method: "GET"}) { %>
+    <%= f.InputTag({name:"Name", placeholder:"Name", size:"40"}) %>
+    <%= f.InputTag({name:"LastName", placeholder:"Last name", size:"40"}) %>
+    <%= f.InputTag({name:"Email", placeholder:"Email", size:"40"}) %>
+    <%= f.InputTag({name:"Age", placeholder:"Age", size:"40"}) %>
     <button class="btn btn-success" role="submit">Enter</button>
   <% } %>
 </div>
