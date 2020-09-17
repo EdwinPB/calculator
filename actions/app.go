@@ -65,7 +65,7 @@ func App() *buffalo.App {
 		app.GET("/calculators/show", CalculatorsShow)
 		app.POST("/calculators/calculate", CalculatorsCalculate).Name("stringCalculate")
 
-		app.POST("/users/create", UsersCreate)
+		app.POST("/users/create", UsersCreate).Name("userCreatePath")
 		app.ServeFiles("/", assetsBox) // serve files from the public directory
 	}
 

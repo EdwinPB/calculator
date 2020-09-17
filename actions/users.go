@@ -30,6 +30,7 @@ func UsersCreate(c buffalo.Context) error {
 	}
 
 	if verrs.HasAny() {
+		c.Set("user", user)
 		c.Set("errors", verrs)
 		return c.Render(http.StatusUnprocessableEntity, r.HTML("index.html"))
 	}
