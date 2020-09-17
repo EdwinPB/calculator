@@ -1,6 +1,7 @@
 package actions
 
 import (
+	"fmt"
 	"net/http"
 	"string_calculator_app/models"
 
@@ -21,7 +22,7 @@ func CalculatorsCalculate(c buffalo.Context) error {
 		return err
 	}
 
-	result, err := models.Calculate(calculator.EnteredValue)
+	result, err := models.Calculate(fmt.Sprintf("%s", calculator.EnteredValue))
 	if err != nil {
 		// show err
 		c.Set("calculateError", err)
