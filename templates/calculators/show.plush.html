@@ -1,21 +1,21 @@
-<% let theme = theme %>
+<% let selectedTheme = theme %>
 <%= if (theme == "") { %>
-    <% let theme = "day" %>
+    <% let selectedTheme = "day" %>
 <% } %>
-<div class="center <%= theme %>">
+<% let themes = {"night": "Night", "day": "Day"} %>
+
+<div class="center <%= selectedTheme %>">
     <%= form({action: stringCalculatePath({theme: theme}), method: "POST"}) { %>
         <div class="title">            
             <div class="col-12 d-flex flex-row p-0">
                 <div class="col-2" style="align-self: center">
                     <div class="form-group">
-                        <label>
-                          <input id="night" name="night" type="radio" value="true" <%= if(theme == "night") { %>checked<% } %>>
-                          <input name="night" type="hidden" value="night"> Night
-                        </label>
-                        <label>
-                            <input id="day" name="day" type="radio" value="true" <%= if(theme == "day") { %>checked<% } %>>
-                            <input id="day" name="day" type="hidden" value="day"> Day
-                        </label>                        
+                        <%= for (key, value) in themes { %>
+                            <label>
+                                <input id="<%= key %>" name="<%= key %>" type="radio" value="true" <%= if(selectedTheme == key) { %>checked<% } %>>
+                                <input name="<%= key %>" type="hidden" value="<%= key %>"> <%= value%>
+                              </label>
+                        <% } %>                                               
                     </div>                                    
                 </div>                
                 <div class="mx-3 col-6 p-0">
