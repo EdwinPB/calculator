@@ -7,6 +7,7 @@ import (
 )
 
 func (as *ActionSuite) Test_Calculators_Show() {
+	as.Session.Set("current_user_id", "5cff7a63-a9d5-4ba3-9316-682c56df6866")
 	res := as.HTML("/calculators/show").Get()
 	as.Equal(http.StatusOK, res.Code)
 }
@@ -21,6 +22,7 @@ func (as *ActionSuite) Test_Calculators_Calculate() {
 		{"1,2,3", "6"},
 		{"//;\n1;2;3", "6"},
 	}
+	as.Session.Set("current_user_id", "5cff7a63-a9d5-4ba3-9316-682c56df6866")
 	for _, tcase := range tcases {
 		res := as.HTML("/calculators/calculate").Post(url.Values{"Numbers": []string{tcase.sNumbers}})
 		as.Equal(http.StatusOK, res.Code)
@@ -30,6 +32,7 @@ func (as *ActionSuite) Test_Calculators_Calculate() {
 }
 
 func (as *ActionSuite) Test_Calculators_Show_Theme() {
+	as.Session.Set("current_user_id", "5cff7a63-a9d5-4ba3-9316-682c56df6866")
 	res := as.HTML("/calculators/show").Get()
 	as.Equal(http.StatusOK, res.Code)
 	as.Contains(res.Body.String(), `<div class="center day">`)

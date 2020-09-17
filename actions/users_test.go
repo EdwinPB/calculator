@@ -20,4 +20,53 @@ func (as *ActionSuite) Test_Users_Create() {
 	user := models.User{}
 	as.NoError(as.DB.Where("email = ?", "edwin@polo.com").First(&user))
 
+	tcases := []struct {
+		values     url.Values
+		errMessaje string
+	}{
+		{
+			values: url.Values{
+				"Name":     []string{""},
+				"LastName": []string{"Polo"},
+				"Email":    []string{"edwin@polo.com"},
+				"Age":      []string{"26"},
+			},
+			errMessaje: "Name cannot be empty",
+		},
+		{
+			values: url.Values{
+				"Name":     []string{"Edwin"},
+				"LastName": []string{""},
+				"Email":    []string{"edwin@polo.com"},
+				"Age":      []string{"26"},
+			},
+			errMessaje: "Last Name cannot be empty",
+		},
+		{
+			values: url.Values{
+				"Name":     []string{"Edwin"},
+				"LastName": []string{"Polo"},
+				"Email":    []string{""},
+				"Age":      []string{"26"},
+			},
+			errMessaje: "Email cannot be empty",
+		},
+		{
+			values: url.Values{
+				"Name":     []string{"Edwin"},
+				"LastName": []string{"Polo"},
+				"Email":    []string{"edwin@polo.com"},
+				"Age":      []string{""},
+			},
+			errMessaje: "Age cannot be empty",
+		},
+	}
+
+	for _, tcase := range tcases {
+		res = as.HTML("/users/create").Post(tcase.values)
+
+		as.Equal(http.StatusUnprocessableEntity, res.Code)
+		as.Contains(res.Body.String(), tcase.errMessaje)
+	}
+
 }

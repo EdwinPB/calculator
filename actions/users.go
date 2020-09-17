@@ -23,16 +23,22 @@ func UsersCreate(c buffalo.Context) error {
 		return errTransactionNoFound
 	}
 
-	verrs, err := tx.ValidateAndCreate(&user)
+	verrs, err := user.Validate(tx)
 
 	if err != nil {
 		return err
 	}
 
 	if verrs.HasAny() {
-		// Show error
-		return c.Redirect(http.StatusSeeOther, "/calculator/show")
+		c.Set("errors", verrs)
+		return c.Render(http.StatusUnprocessableEntity, r.HTML("index.html"))
 	}
+
+	if err := tx.Create(&user); err != nil {
+		return err
+	}
+
+	c.Session().Set("current_user_id", user.ID)
 
 	return c.Redirect(http.StatusSeeOther, "/calculator/show")
 }

@@ -12,6 +12,12 @@ import (
 func CalculatorsShow(c buffalo.Context) error {
 	c.Set("result", "")
 	c.Set("theme", c.Params().Get("theme"))
+
+	userID := c.Session().Get("current_user_id")
+	if userID == nil {
+		return c.Render(http.StatusUnprocessableEntity, r.HTML("index.html"))
+	}
+
 	return c.Render(http.StatusOK, r.HTML("calculators/show.html"))
 }
 
@@ -24,7 +30,6 @@ func CalculatorsCalculate(c buffalo.Context) error {
 
 	result, err := models.Calculate(fmt.Sprintf("%s", calculator.EnteredValue))
 	if err != nil {
-		// show err
 		c.Set("calculateError", err)
 	}
 

@@ -3,7 +3,7 @@ package models
 import (
 	"time"
 
-	"github.com/gobuffalo/pop"
+	"github.com/gobuffalo/pop/v5"
 	"github.com/gobuffalo/validate"
 	"github.com/gobuffalo/validate/validators"
 	"github.com/gofrs/uuid"
@@ -26,17 +26,22 @@ type Users []User
 // This method is not required and may be deleted.
 func (u *User) Validate(tx *pop.Connection) (*validate.Errors, error) {
 	return validate.Validate(
-		&validators.StringIsPresent{Field: u.Name, Name: "Name"},
-		&validators.StringIsPresent{Field: u.LastName, Name: "LastName"},
-		&validators.StringIsPresent{Field: u.Email, Name: "Email"},
-		&validators.StringIsPresent{Field: u.Age, Name: "Age"},
+		&validators.StringIsPresent{Field: u.Name, Name: "Name", Message: "Name cannot be empty"},
+		&validators.StringIsPresent{Field: u.LastName, Name: "LastName", Message: "Last Name cannot be empty"},
+		&validators.StringIsPresent{Field: u.Email, Name: "Email", Message: "Email cannot be empty"},
+		&validators.StringIsPresent{Field: u.Age, Name: "Age", Message: "Age cannot be empty"},
 	), nil
 }
 
 // ValidateCreate gets run every time you call "pop.ValidateAndCreate" method.
 // This method is not required and may be deleted.
 func (u *User) ValidateCreate(tx *pop.Connection) (*validate.Errors, error) {
-	return validate.NewErrors(), nil
+	return validate.Validate(
+		&validators.StringIsPresent{Field: u.Name, Name: "Name", Message: "Name cannot be empty"},
+		&validators.StringIsPresent{Field: u.LastName, Name: "LastName", Message: "Last Name cannot be empty"},
+		&validators.StringIsPresent{Field: u.Email, Name: "Email", Message: "Email cannot be empty"},
+		&validators.StringIsPresent{Field: u.Age, Name: "Age", Message: "Age cannot be empty"},
+	), nil
 }
 
 // ValidateUpdate gets run every time you call "pop.ValidateAndUpdate" method.
