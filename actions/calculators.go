@@ -70,3 +70,9 @@ func CalculatorsCalculate(c buffalo.Context) error {
 	c.Set("theme", c.Params().Get("theme"))
 	return c.Render(http.StatusOK, r.HTML("calculators/show.html"))
 }
+
+// CalculatorsShowReport default implementation.
+func CalculatorsShowReport(c buffalo.Context) error {
+
+	return c.Render(http.StatusOK, r.HTML("calculators/report.html"))
+}

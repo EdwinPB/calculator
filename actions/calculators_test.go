@@ -71,3 +71,16 @@ func (as *ActionSuite) Test_Calculators_Show_Theme() {
 	}
 
 }
+
+func (as *ActionSuite) Test_Calculators_Show_Report() {
+	res := as.HTML("/calculators/show/report").Get()
+	as.Equal(http.StatusOK, res.Code)
+
+	as.Contains(res.Body.String(), "<th>Name</th>")
+	as.Contains(res.Body.String(), "<th>Last Name</th>")
+	as.Contains(res.Body.String(), "<th>Number of calculations</th>")
+	as.Contains(res.Body.String(), "<th>Max Calculated Value</th>")
+	as.Contains(res.Body.String(), "<th>Min Calculated Value</th>")
+	as.Contains(res.Body.String(), "<th>Average Of Calculated Values</th>")
+
+}

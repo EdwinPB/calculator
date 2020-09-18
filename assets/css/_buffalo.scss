@@ -199,3 +199,20 @@ table {
     margin: 0;
   }
 }
+
+table {
+  border-spacing: 5px;
+}
+
+th {
+  text-align: center;
+  padding: 15px;
+}
+
+td {
+  text-align: left;
+  padding: 10px;
+}
+table, th, td {
+  border: 1px solid black;
+}
