@@ -56,8 +56,6 @@ func CalculatorsCalculate(c buffalo.Context) error {
 	}
 
 	if verrs.HasAny() {
-		fmt.Println("---->", verrs)
-		fmt.Println("---->", c.Session().Get("current_user_id"))
 		c.Set("calculateError", verrs)
 		c.Set("theme", c.Params().Get("theme"))
 		c.Set("result", "0")
