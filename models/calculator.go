@@ -69,3 +69,40 @@ func (c *Calculator) Validate(tx *pop.Connection) (*validate.Errors, error) {
 		&validators.UUIDIsPresent{Field: c.UserID, Name: "UserID", Message: "User does not exist"},
 	), nil
 }
+
+func (cs Calculators) MaxCalculatorsValue() int {
+	result := 0
+	for _, c := range cs {
+		iNum, _ := strconv.Atoi(c.CalculatedValue)
+		if iNum > result {
+			result = iNum
+		}
+	}
+	return result
+}
+
+func (cs Calculators) MinCalculatorsValue() int {
+	if len(cs) == 0 {
+		return 0
+	}
+	result, _ := strconv.Atoi(cs[0].CalculatedValue)
+	for _, c := range cs {
+		iNum, _ := strconv.Atoi(c.CalculatedValue)
+		if iNum < result {
+			result = iNum
+		}
+	}
+	return result
+}
+
+func (cs Calculators) AverageCalculatedValues() float64 {
+	if len(cs) == 0 {
+		return 0
+	}
+	sum := 0
+	for _, c := range cs {
+		num, _ := strconv.Atoi(c.CalculatedValue)
+		sum += num
+	}
+	return float64(sum) / float64(len(cs))
+}

@@ -10,5 +10,16 @@
             <th>Average Of Calculated Values</th>
         </tr>
 
+        <%= for (user) in users { %>
+            <tr>
+                <td><%= user.Name %></td>
+                <td><%= user.LastName %></td>
+                <td><%= len(user.Calculators) %></td>
+                <td><%= user.Calculators.MaxCalculatorsValue() %></td>
+                <td><%= user.Calculators.MinCalculatorsValue() %></td>
+                <td><%= user.Calculators.AverageCalculatedValues() %></td>
+            </tr>
+        <% } %>
+
     </table>
 </div>

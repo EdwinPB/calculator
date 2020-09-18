@@ -34,6 +34,44 @@ func (ms ModelSuite) Test_Calculator_Calculate() {
 	}
 }
 
-func (ms ModelSuite) Test_Calculator_Storage_Calculator() {
+func (ms ModelSuite) Test_Calculator_Average_Calculator() {
+	calculators := Calculators{}
+	ms.Equal(float64(0), calculators.AverageCalculatedValues())
+
+	calculators = Calculators{
+		Calculator{
+			CalculatedValue: "6",
+		},
+		Calculator{
+			CalculatedValue: "6",
+		},
+		Calculator{
+			CalculatedValue: "9",
+		},
+	}
+
+	ms.Equal(float64(7), calculators.AverageCalculatedValues())
+
+	calculators = Calculators{
+		Calculator{
+			CalculatedValue: "6",
+		},
+		Calculator{
+			CalculatedValue: "13",
+		},
+	}
+
+	ms.Equal(float64(9.5), calculators.AverageCalculatedValues())
+
+	calculators = Calculators{
+		Calculator{
+			CalculatedValue: "0",
+		},
+		Calculator{
+			CalculatedValue: "0",
+		},
+	}
+
+	ms.Equal(float64(0), calculators.AverageCalculatedValues())
 
 }

@@ -15,10 +15,10 @@ func CalculatorsShow(c buffalo.Context) error {
 	c.Set("result", "")
 	c.Set("theme", c.Params().Get("theme"))
 
-	userID := c.Session().Get("current_user_id")
-	if userID == nil {
-		return c.Render(http.StatusUnprocessableEntity, r.HTML("index.html"))
-	}
+	// userID := c.Session().Get("current_user_id")
+	// if userID == nil {
+	// 	return c.Render(http.StatusUnprocessableEntity, r.HTML("index.html"))
+	// }
 
 	return c.Render(http.StatusOK, r.HTML("calculators/show.html"))
 }
@@ -44,7 +44,7 @@ func CalculatorsCalculate(c buffalo.Context) error {
 	}
 
 	user := models.User{}
-	tx.Find(&user, c.Session().Get("current_user_id"))
+	tx.First(&user)
 
 	calculator.CalculatedValue = strconv.Itoa(result)
 	calculator.UserID = user.ID
@@ -73,6 +73,14 @@ func CalculatorsCalculate(c buffalo.Context) error {
 
 // CalculatorsShowReport default implementation.
 func CalculatorsShowReport(c buffalo.Context) error {
+	tx, ok := c.Value("tx").(*pop.Connection)
+	if !ok {
+		return errTransactionNoFound
+	}
+	users := models.Users{}
+	tx.Eager("Calculators").All(&users)
+
+	c.Set("users", users)
 
 	return c.Render(http.StatusOK, r.HTML("calculators/report.html"))
 }

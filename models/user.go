@@ -10,13 +10,14 @@ import (
 )
 
 type User struct {
-	ID        uuid.UUID `json:"id" db:"id"`
-	Name      string    `json:"name" db:"name"`
-	LastName  string    `json:"last_name" db:"last_name"`
-	Email     string    `json:"email" db:"email"`
-	Age       string    `json:"age" db:"age"`
-	CreatedAt time.Time `json:"created_at" db:"created_at"`
-	UpdatedAt time.Time `json:"updated_at" db:"updated_at"`
+	ID          uuid.UUID   `json:"id" db:"id"`
+	Name        string      `json:"name" db:"name"`
+	LastName    string      `json:"last_name" db:"last_name"`
+	Email       string      `json:"email" db:"email"`
+	Age         string      `json:"age" db:"age"`
+	Calculators Calculators `has_many:"calculators"`
+	CreatedAt   time.Time   `json:"created_at" db:"created_at"`
+	UpdatedAt   time.Time   `json:"updated_at" db:"updated_at"`
 }
 
 // Users is not required by pop and may be deleted.
