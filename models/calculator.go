@@ -6,15 +6,18 @@ import (
 	"strings"
 	"time"
 
+	"github.com/gobuffalo/pop/v5"
+	"github.com/gobuffalo/validate"
+	"github.com/gobuffalo/validate/validators"
 	"github.com/gofrs/uuid"
 )
 
 type Calculator struct {
 	ID              uuid.UUID `json:"id" db:"id"`
 	EnteredValue    string    `json:"entered_value" db:"entered_value"`
-	CalculatedValue int       `json:"calculated_value" db:"calculated_value"`
+	CalculatedValue string    `json:"calculated_value" db:"calculated_value"`
 
-	UserID uuid.UUID `json:"user_id" db:""`
+	UserID uuid.UUID `json:"user_id" db:"user_id"`
 
 	CreatedAt time.Time `json:"created_at" db:"created_at"`
 	UpdatedAt time.Time `json:"updated_at" db:"updated_at"`
@@ -59,4 +62,10 @@ func Calculate(sNumbers string) (int, error) {
 	}
 
 	return num, nil
+}
+
+func (c *Calculator) Validate(tx *pop.Connection) (*validate.Errors, error) {
+	return validate.Validate(
+		&validators.UUIDIsPresent{Field: c.UserID, Name: "UserID", Message: "User does not exist"},
+	), nil
 }

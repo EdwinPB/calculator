@@ -13,6 +13,7 @@ var errTransactionNoFound = fmt.Errorf("no transaction found")
 
 // UsersCreate default implementation.
 func UsersCreate(c buffalo.Context) error {
+	c.Session().Clear()
 	user := models.User{}
 	if err := c.Bind(&user); err != nil {
 		return err

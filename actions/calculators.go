@@ -3,9 +3,11 @@ package actions
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 	"string_calculator_app/models"
 
 	"github.com/gobuffalo/buffalo"
+	"github.com/gobuffalo/pop/v5"
 )
 
 // CalculatorsShow default implementation.
@@ -28,9 +30,42 @@ func CalculatorsCalculate(c buffalo.Context) error {
 		return err
 	}
 
+	tx, ok := c.Value("tx").(*pop.Connection)
+	if !ok {
+		return errTransactionNoFound
+	}
+
 	result, err := models.Calculate(fmt.Sprintf("%s", calculator.EnteredValue))
 	if err != nil {
 		c.Set("calculateError", err)
+		c.Set("theme", c.Params().Get("theme"))
+		c.Set("result", "0")
+		return c.Render(http.StatusUnprocessableEntity, r.HTML("calculators/show.html"))
+	}
+
+	user := models.User{}
+	tx.Find(&user, c.Session().Get("current_user_id"))
+
+	calculator.CalculatedValue = strconv.Itoa(result)
+	calculator.UserID = user.ID
+
+	verrs, err := calculator.Validate(tx)
+
+	if err != nil {
+		return err
+	}
+
+	if verrs.HasAny() {
+		fmt.Println("---->", verrs)
+		fmt.Println("---->", c.Session().Get("current_user_id"))
+		c.Set("calculateError", verrs)
+		c.Set("theme", c.Params().Get("theme"))
+		c.Set("result", "0")
+		return c.Render(http.StatusUnprocessableEntity, r.HTML("calculators/show.html"))
+	}
+
+	if err := tx.Create(&calculator); err != nil {
+		return err
 	}
 
 	c.Set("result", result)

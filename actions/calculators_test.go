@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"string_calculator_app/models"
 )
 
 func (as *ActionSuite) Test_Calculators_Show() {
@@ -22,7 +23,16 @@ func (as *ActionSuite) Test_Calculators_Calculate() {
 		{"1,2,3", "6"},
 		{"//;\n1;2;3", "6"},
 	}
-	as.Session.Set("current_user_id", "5cff7a63-a9d5-4ba3-9316-682c56df6866")
+
+	user := models.User{
+		Name:     "Edwin",
+		LastName: "Polo",
+		Email:    "edwin@edwi.com",
+		Age:      "26",
+	}
+	as.NoError(as.DB.Create(&user))
+	as.Session.Set("current_user_id", user.ID)
+
 	for _, tcase := range tcases {
 		res := as.HTML("/calculators/calculate").Post(url.Values{"Numbers": []string{tcase.sNumbers}})
 		as.Equal(http.StatusOK, res.Code)

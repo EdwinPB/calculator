@@ -1,10 +1,10 @@
 <div class="center d-flex flex-column">
   <h1>Welcome</h1>
-  <%= formFor(user, {action: userCreatePath(), method: "POST"}) { %>
-    <%= f.InputTag("Name", {name:"Name", placeholder:"Name", size:"40", label:""}) %>
-    <%= f.InputTag("LastName", {name:"LastName", placeholder:"Last name", size:"40", label:""}) %>
-    <%= f.InputTag("Email", {name:"Email", placeholder:"Email", size:"40", label:""}) %>
-    <%= f.InputTag("Age", {name:"Age", placeholder:"Age", size:"40", label:""}) %>
+  <%= form({action: userCreatePath(), method: "POST"}) { %>
+    <%= f.InputTag({name:"Name", placeholder:"Name", size:"40", label:""}) %>
+    <%= f.InputTag({name:"LastName", placeholder:"Last name", size:"40", label:""}) %>
+    <%= f.InputTag({name:"Email", placeholder:"Email", size:"40", label:""}) %>
+    <%= f.InputTag({name:"Age", placeholder:"Age", size:"40", label:""}) %>
     <button class="btn btn-success" role="submit">Enter</button>
   <% } %>
 </div>
